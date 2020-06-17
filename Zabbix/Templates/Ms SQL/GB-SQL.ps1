@@ -26,7 +26,7 @@ if ($Operation -eq "discover"){
     $baseName = $DataSet.Tables[0]
     
     Write-Host "{`"data`":"
-    Write-Host (ConvertTo-Json ($baseName | select "{#NAME}","{#DBID}"))
+    Write-Host (ConvertTo-Json ($baseName | Select-Object "{#NAME}","{#DBID}"))
     Write-Host "}"
 
     }

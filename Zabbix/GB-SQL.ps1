@@ -1,12 +1,12 @@
 Param(
-    [string]$Usr,
-    [string]$Pwd,
+    [string]$UsrSQL,
+    [string]$PwdSQL,
     [string]$Operation,
     [string]$DBid
     )
 
 $sqlServer = $env:COMPUTERNAME
-$connectionString = "Server = $sqlServer; User ID = $Usr; Password = $Pwd;"
+$connectionString = "Server = $sqlServer; User ID = $UsrSQL; Password = $PwdSQL;"
 #$connectionString = "Server = $sqlServer; Integrated Security = True;"
 
 $connection = New-Object System.Data.SqlClient.SqlConnection

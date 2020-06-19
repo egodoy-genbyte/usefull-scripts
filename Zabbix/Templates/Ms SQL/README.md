@@ -17,6 +17,8 @@ You will need to create a local user with the correct privileges, and update the
 * {$USR}: Local SQL user
 * {$PWD}: local SQL user password
 
+:closed_lock_with_key: Field type is set to "secret text", so you don't need to be worried about other Zabbix admins can see the credentials
+
 With this parameters set you will be able to discover all DB and query it's sizes.
 
 ## Service
@@ -71,3 +73,13 @@ In any multi-user application you're going to have blocked processes, and SQL Se
 > "\SQLServer:SQL Statistics\SQL Re-Compilations/sec"
 
 These counters will increment when SQL Server has to compile or recompile query plans because either the plan in cache is no longer valid, or there's no plan in cache for this query. SQL Server uses a cost-based optimizer that relies on statistics to choose a good query plan, and when those statistics are out-of-date, additional compilations are done unnecessarily. It can be useful to understand the source of this problem, if it is a problem (this might be expected behavior, depending on the workload).
+
+# How to use this template
+
+It's very simple:
+
+1. Import the template on Zabbix (you must be runnig Zabbix 5)
+2. Add sql.conf content to your agent config
+3. Copy the PS script (note that you will need to modify sql.conf for your scenario)
+4. Create sql users and complete the corresponding macros
+5. Enjoy

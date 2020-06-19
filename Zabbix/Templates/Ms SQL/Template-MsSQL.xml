@@ -1,0 +1,326 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zabbix_export>
+    <version>5.0</version>
+    <date>2020-06-19T13:39:51Z</date>
+    <groups>
+        <group>
+            <name>templates/Genbyte</name>
+        </group>
+    </groups>
+    <templates>
+        <template>
+            <template>Gb - Ms SQL</template>
+            <name>Gb - Ms SQL</name>
+            <groups>
+                <group>
+                    <name>templates/Genbyte</name>
+                </group>
+            </groups>
+            <applications>
+                <application>
+                    <name>Databases</name>
+                </application>
+                <application>
+                    <name>Performance</name>
+                </application>
+                <application>
+                    <name>Services</name>
+                </application>
+            </applications>
+            <items>
+                <item>
+                    <name>Buffer cache hit ratio</name>
+                    <key>sql.buffercachehit</key>
+                    <delay>10m;5m/1-5,08:00-19:00</delay>
+                    <trends>45d</trends>
+                    <value_type>FLOAT</value_type>
+                    <description>Buffer Cache Hit Ratio shows how SQL Server utilizes buffer cache.&#13;
+It gives the ratio of the data pages found and read from the SQL Server buffer cache and all data page requests. The pages that are not found in the buffer cache are read from the disk, which is significantly slower and affects performance.&#13;
+Ideally, SQL Server would read all pages from the buffer cache and there will be no need to read any from disk. In this case, the Buffer Cache Hit Ratio value would be 100. The recommended value for Buffer Cache Hit Ratio is over 90.</description>
+                    <applications>
+                        <application>
+                            <name>Performance</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>Page life expectancy</name>
+                    <key>sql.bufferpagelife</key>
+                    <delay>10m;5m/1-5,08:00-19:00</delay>
+                    <trends>45d</trends>
+                    <value_type>FLOAT</value_type>
+                    <description>SQL Server has more chances to find the pages in the buffer pool if they stay there longer. If the page is not in the buffer pool, it will be read from disk, which affects performance. If there’s insufficient memory, data pages are flushed from buffer cache more frequently, to free up the space for the new pages.&#13;
+When there’s sufficient memory on the server, pages have a high life expectancy. The normal values are above 300 seconds (5 minutes) and the trend line should be stable. It’s recommended to monitor the values over time, as frequent quick drops indicate memory issues. Also, a value drop of more than 50% is a sign for deeper investigation.</description>
+                    <applications>
+                        <application>
+                            <name>Performance</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>SQL Compilations/sec</name>
+                    <key>sql.compilations</key>
+                    <delay>10m;5m/1-5,08:00-19:00</delay>
+                    <trends>45d</trends>
+                    <value_type>FLOAT</value_type>
+                    <description>These counters will increment when SQL Server has to compile or recompile query plans because either the plan in cache is no longer valid, or there's no plan in cache for this query. SQL Server uses a cost-based optimizer that relies on statistics to choose a good query plan, and when those statistics are out-of-date, additional compilations are done unnecessarily. It can be useful to understand the source of this problem, if it is a problem (this might be expected behavior, depending on the workload).</description>
+                    <applications>
+                        <application>
+                            <name>Performance</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>Page Splits/sec</name>
+                    <key>sql.pagesplits</key>
+                    <delay>10m;5m/1-5,08:00-19:00</delay>
+                    <trends>45d</trends>
+                    <value_type>FLOAT</value_type>
+                    <description>Whenever you INSERT new data into a SQL Server table, or in some cases, UPDATE data in a SQL Server table, there may not enough room for the newly INSERTed or UPDATEd row in the applicable data page. In this case, SQL Server will have to move some of the data from the current data page and move it to a new data page. So not only does SQL Server experience the normal I/O of INSERTing or UPDATing a row, it must also move data and update any applicable indexes. This can result in a lot of excess I/O.</description>
+                    <applications>
+                        <application>
+                            <name>Performance</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>Processes blocked</name>
+                    <key>sql.procblocked</key>
+                    <delay>10m;5m/1-5,08:00-19:00</delay>
+                    <trends>45d</trends>
+                    <value_type>FLOAT</value_type>
+                    <description>In any multi-user application you're going to have blocked processes, and SQL Server has mechanisms to handle blocked processes well, but when this counter goes outside the normal range (for your system) you'll want to investigate and see what might be causing the issue. There could be excessive blocking due to page escalation, for example, where entire tables are getting locked instead of individual rows or pages.</description>
+                    <applications>
+                        <application>
+                            <name>Performance</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>SQL Re-Compilations/sec</name>
+                    <key>sql.recompilations</key>
+                    <delay>10m;5m/1-5,08:00-19:00</delay>
+                    <trends>45d</trends>
+                    <value_type>FLOAT</value_type>
+                    <description>These counters will increment when SQL Server has to compile or recompile query plans because either the plan in cache is no longer valid, or there's no plan in cache for this query. SQL Server uses a cost-based optimizer that relies on statistics to choose a good query plan, and when those statistics are out-of-date, additional compilations are done unnecessarily. It can be useful to understand the source of this problem, if it is a problem (this might be expected behavior, depending on the workload).</description>
+                    <applications>
+                        <application>
+                            <name>Performance</name>
+                        </application>
+                    </applications>
+                </item>
+            </items>
+            <discovery_rules>
+                <discovery_rule>
+                    <name>DB Discovery</name>
+                    <key>sql_ps[discover,{$USR},{$PWD},]</key>
+                    <delay>1d</delay>
+                    <item_prototypes>
+                        <item_prototype>
+                            <name>Database {#NAME} free space on Data</name>
+                            <key>sql_ps[freeDAT,{$USR},{$PWD},{#NAME}]</key>
+                            <delay>1h</delay>
+                            <trends>45d</trends>
+                            <units>B</units>
+                            <applications>
+                                <application>
+                                    <name>Databases</name>
+                                </application>
+                            </applications>
+                            <preprocessing>
+                                <step>
+                                    <type>MULTIPLIER</type>
+                                    <params>1024</params>
+                                </step>
+                            </preprocessing>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Database {#NAME} free space on Log</name>
+                            <key>sql_ps[freeLOG,{$USR},{$PWD},{#NAME}]</key>
+                            <delay>1h</delay>
+                            <trends>45d</trends>
+                            <units>B</units>
+                            <applications>
+                                <application>
+                                    <name>Databases</name>
+                                </application>
+                            </applications>
+                            <preprocessing>
+                                <step>
+                                    <type>MULTIPLIER</type>
+                                    <params>1024</params>
+                                </step>
+                            </preprocessing>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Database {#NAME} grogth config for Data</name>
+                            <key>sql_ps[grDAT,{$USR},{$PWD},{#NAME}]</key>
+                            <delay>1d</delay>
+                            <trends>45d</trends>
+                            <units>B</units>
+                            <applications>
+                                <application>
+                                    <name>Databases</name>
+                                </application>
+                            </applications>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Database {#NAME} grogth config for Log</name>
+                            <key>sql_ps[grLOG,{$USR},{$PWD},{#NAME}]</key>
+                            <delay>1d</delay>
+                            <trends>45d</trends>
+                            <units>B</units>
+                            <applications>
+                                <application>
+                                    <name>Databases</name>
+                                </application>
+                            </applications>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Database {#NAME} grogth % for Data</name>
+                            <key>sql_ps[grpDAT,{$USR},{$PWD},{#NAME}]</key>
+                            <delay>1d</delay>
+                            <trends>0</trends>
+                            <value_type>TEXT</value_type>
+                            <applications>
+                                <application>
+                                    <name>Databases</name>
+                                </application>
+                            </applications>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Database {#NAME} grogth % for Log</name>
+                            <key>sql_ps[grpLOG,{$USR},{$PWD},{#NAME}]</key>
+                            <delay>1d</delay>
+                            <trends>0</trends>
+                            <value_type>TEXT</value_type>
+                            <applications>
+                                <application>
+                                    <name>Databases</name>
+                                </application>
+                            </applications>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Database {#NAME} data size</name>
+                            <key>sql_ps[sizeDAT,{$USR},{$PWD},{#NAME}]</key>
+                            <delay>1h</delay>
+                            <trends>45d</trends>
+                            <units>B</units>
+                            <applications>
+                                <application>
+                                    <name>Databases</name>
+                                </application>
+                            </applications>
+                            <preprocessing>
+                                <step>
+                                    <type>MULTIPLIER</type>
+                                    <params>1024</params>
+                                </step>
+                            </preprocessing>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Database {#NAME} log size</name>
+                            <key>sql_ps[sizeLOG,{$USR},{$PWD},{#NAME}]</key>
+                            <delay>1h</delay>
+                            <trends>45d</trends>
+                            <units>B</units>
+                            <applications>
+                                <application>
+                                    <name>Databases</name>
+                                </application>
+                            </applications>
+                            <preprocessing>
+                                <step>
+                                    <type>MULTIPLIER</type>
+                                    <params>1024</params>
+                                </step>
+                            </preprocessing>
+                        </item_prototype>
+                    </item_prototypes>
+                </discovery_rule>
+                <discovery_rule>
+                    <name>SQL Instances</name>
+                    <key>sql_ps[services]</key>
+                    <delay>1d</delay>
+                    <item_prototypes>
+                        <item_prototype>
+                            <name>{#DNAME} Service</name>
+                            <key>service.info[{#NAME}]</key>
+                            <delay>10m;5m/1-5,08:00-19:00</delay>
+                            <applications>
+                                <application>
+                                    <name>Services</name>
+                                </application>
+                            </applications>
+                            <valuemap>
+                                <name>Windows service state</name>
+                            </valuemap>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <expression>{last()}&lt;&gt;0</expression>
+                                    <name>{#NAME} Service Stopped</name>
+                                    <priority>HIGH</priority>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                    </item_prototypes>
+                </discovery_rule>
+            </discovery_rules>
+            <macros>
+                <macro>
+                    <macro>{$PWD}</macro>
+                    <type>SECRET_TEXT</type>
+                    <description>Password for local SQL user</description>
+                </macro>
+                <macro>
+                    <macro>{$USR}</macro>
+                    <type>SECRET_TEXT</type>
+                    <description>User name for SQL Server</description>
+                </macro>
+            </macros>
+        </template>
+    </templates>
+    <value_maps>
+        <value_map>
+            <name>Windows service state</name>
+            <mappings>
+                <mapping>
+                    <value>0</value>
+                    <newvalue>Running</newvalue>
+                </mapping>
+                <mapping>
+                    <value>1</value>
+                    <newvalue>Paused</newvalue>
+                </mapping>
+                <mapping>
+                    <value>2</value>
+                    <newvalue>Start pending</newvalue>
+                </mapping>
+                <mapping>
+                    <value>3</value>
+                    <newvalue>Pause pending</newvalue>
+                </mapping>
+                <mapping>
+                    <value>4</value>
+                    <newvalue>Continue pending</newvalue>
+                </mapping>
+                <mapping>
+                    <value>5</value>
+                    <newvalue>Stop pending</newvalue>
+                </mapping>
+                <mapping>
+                    <value>6</value>
+                    <newvalue>Stopped</newvalue>
+                </mapping>
+                <mapping>
+                    <value>7</value>
+                    <newvalue>Unknown</newvalue>
+                </mapping>
+                <mapping>
+                    <value>255</value>
+                    <newvalue>No such service</newvalue>
+                </mapping>
+            </mappings>
+        </value_map>
+    </value_maps>
+</zabbix_export>

@@ -29,6 +29,25 @@ This template will search and register all instances and related services.
 
 :rotating_light: *Triggers an alert when service is stopped*
 
+## How to use this template
+
+It's very simple:
+
+1. Import the template on Zabbix (you must be runnig Zabbix 5)
+2. Add sql.conf content to your agent config
+3. Copy the PS script (note that you will need to modify sql.conf for your scenario)
+4. Create sql users and complete the corresponding macros
+5. Enjoy
+
+## :notebook: Next Steps
+
+In nex versions, I would like to incluye:
+
+* More perfomance counter
+* Database indivial perfomarnce indicators
+
+# Apendix
+
 ## Performance Counters
 
 ### Access Methods\Page Splits/sec
@@ -73,13 +92,3 @@ In any multi-user application you're going to have blocked processes, and SQL Se
 > "\SQLServer:SQL Statistics\SQL Re-Compilations/sec"
 
 These counters will increment when SQL Server has to compile or recompile query plans because either the plan in cache is no longer valid, or there's no plan in cache for this query. SQL Server uses a cost-based optimizer that relies on statistics to choose a good query plan, and when those statistics are out-of-date, additional compilations are done unnecessarily. It can be useful to understand the source of this problem, if it is a problem (this might be expected behavior, depending on the workload).
-
-# How to use this template
-
-It's very simple:
-
-1. Import the template on Zabbix (you must be runnig Zabbix 5)
-2. Add sql.conf content to your agent config
-3. Copy the PS script (note that you will need to modify sql.conf for your scenario)
-4. Create sql users and complete the corresponding macros
-5. Enjoy

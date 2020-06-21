@@ -112,4 +112,4 @@ You will need:
 
 * __general.conf__ file with the required config options for the agent.
 * __Gb-CheckPS.ps1__ for obtaining powershell info.
-* __ Gb-CheckUpdates.ps1_ for obtaining pending updates info.
+* __Gb-CheckUpdates.ps1__ for obtaining pending updates info.

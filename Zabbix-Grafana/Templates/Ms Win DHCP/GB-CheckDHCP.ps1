@@ -3,7 +3,7 @@
 Query Windows Server DHCP Scopes, and usage
 
 .DESCRIPTION
-.
+Script for use in Zabbix. It will query Windows Server DHCP Scopes, and usage
 
 .PARAMETER Operation
 Operations:

@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zabbix_export>
+    <version>5.0</version>
+    <date>2020-07-09T17:22:35Z</date>
+    <groups>
+        <group>
+            <name>templates/Genbyte</name>
+        </group>
+    </groups>
+    <templates>
+        <template>
+            <template>GB - Windows DHCP</template>
+            <name>GB - Windows DHCP</name>
+            <groups>
+                <group>
+                    <name>templates/Genbyte</name>
+                </group>
+            </groups>
+            <applications>
+                <application>
+                    <name>DHCP sopce</name>
+                </application>
+                <application>
+                    <name>Performance</name>
+                </application>
+                <application>
+                    <name>Services</name>
+                </application>
+            </applications>
+            <items>
+                <item>
+                    <name>DHCP Declines /sec</name>
+                    <key>dhcp.declines</key>
+                    <delay>10m;5m/1-5,08:00-19:00</delay>
+                    <value_type>FLOAT</value_type>
+                    <applications>
+                        <application>
+                            <name>Performance</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>DHCP Discovers</name>
+                    <key>dhcp.discovers</key>
+                    <delay>10m;5m/1-5,08:00-19:00</delay>
+                    <value_type>FLOAT</value_type>
+                    <applications>
+                        <application>
+                            <name>Performance</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>DHCP Duplicates Dropped /sec</name>
+                    <key>dhcp.duplicatesdropped</key>
+                    <delay>10m;5m/1-5,08:00-19:00</delay>
+                    <value_type>FLOAT</value_type>
+                    <applications>
+                        <application>
+                            <name>Performance</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>DHCP Informs</name>
+                    <key>dhcp.informs</key>
+                    <delay>10m;5m/1-5,08:00-19:00</delay>
+                    <value_type>FLOAT</value_type>
+                    <applications>
+                        <application>
+                            <name>Performance</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>DHCP Milliseconds per packet (Avg)</name>
+                    <key>dhcp.msppacket</key>
+                    <delay>10m;5m/1-5,08:00-19:00</delay>
+                    <value_type>FLOAT</value_type>
+                    <applications>
+                        <application>
+                            <name>Performance</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>DHCP Nacks /sec</name>
+                    <key>dhcp.nacks</key>
+                    <delay>10m;5m/1-5,08:00-19:00</delay>
+                    <value_type>FLOAT</value_type>
+                    <applications>
+                        <application>
+                            <name>Performance</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>DHCP Offers /sec</name>
+                    <key>dhcp.offers</key>
+                    <delay>10m;5m/1-5,08:00-19:00</delay>
+                    <value_type>FLOAT</value_type>
+                    <applications>
+                        <application>
+                            <name>Performance</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>DHCP Packets Expired /sec</name>
+                    <key>dhcp.packetsexpired</key>
+                    <delay>10m;5m/1-5,08:00-19:00</delay>
+                    <value_type>FLOAT</value_type>
+                    <applications>
+                        <application>
+                            <name>Performance</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>DHCP Releases /sec</name>
+                    <key>dhcp.releases</key>
+                    <delay>10m;5m/1-5,08:00-19:00</delay>
+                    <value_type>FLOAT</value_type>
+                    <applications>
+                        <application>
+                            <name>Performance</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>DHCP Requests /sec</name>
+                    <key>dhcp.requests</key>
+                    <delay>10m;5m/1-5,08:00-19:00</delay>
+                    <value_type>FLOAT</value_type>
+                    <applications>
+                        <application>
+                            <name>Performance</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>DHCP Service</name>
+                    <key>service.info[DHCPServer]</key>
+                    <delay>10m;5m/1-5,08:00-19:00</delay>
+                    <value_type>FLOAT</value_type>
+                    <applications>
+                        <application>
+                            <name>Services</name>
+                        </application>
+                    </applications>
+                    <valuemap>
+                        <name>Windows service state</name>
+                    </valuemap>
+                    <triggers>
+                        <trigger>
+                            <expression>{last()}&lt;&gt;0</expression>
+                            <name>DHCP Service not running on {HOST.NAME}</name>
+                            <priority>HIGH</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+            </items>
+            <discovery_rules>
+                <discovery_rule>
+                    <name>DHCP Scopes Discovery</name>
+                    <key>dhcp_ps[discover,]</key>
+                    <delay>1d</delay>
+                    <item_prototypes>
+                        <item_prototype>
+                            <name>DHCP Scope {#NAME} Used IPs</name>
+                            <key>dhcp_ps[query,{#ID}]</key>
+                            <delay>1h;30m/1-5,08:00-19:00</delay>
+                            <history>45d</history>
+                            <trends>90d</trends>
+                            <value_type>FLOAT</value_type>
+                            <units>%</units>
+                            <applications>
+                                <application>
+                                    <name>DHCP sopce</name>
+                                </application>
+                            </applications>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <expression>{last()}&gt;80</expression>
+                                    <name>DHCP Scope {#NAME} has less tan 20% available IPs</name>
+                                    <priority>HIGH</priority>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                    </item_prototypes>
+                </discovery_rule>
+            </discovery_rules>
+        </template>
+    </templates>
+    <value_maps>
+        <value_map>
+            <name>Windows service state</name>
+            <mappings>
+                <mapping>
+                    <value>0</value>
+                    <newvalue>Running</newvalue>
+                </mapping>
+                <mapping>
+                    <value>1</value>
+                    <newvalue>Paused</newvalue>
+                </mapping>
+                <mapping>
+                    <value>2</value>
+                    <newvalue>Start pending</newvalue>
+                </mapping>
+                <mapping>
+                    <value>3</value>
+                    <newvalue>Pause pending</newvalue>
+                </mapping>
+                <mapping>
+                    <value>4</value>
+                    <newvalue>Continue pending</newvalue>
+                </mapping>
+                <mapping>
+                    <value>5</value>
+                    <newvalue>Stop pending</newvalue>
+                </mapping>
+                <mapping>
+                    <value>6</value>
+                    <newvalue>Stopped</newvalue>
+                </mapping>
+                <mapping>
+                    <value>7</value>
+                    <newvalue>Unknown</newvalue>
+                </mapping>
+                <mapping>
+                    <value>255</value>
+                    <newvalue>No such service</newvalue>
+                </mapping>
+            </mappings>
+        </value_map>
+    </value_maps>
+</zabbix_export>

@@ -74,5 +74,6 @@ Indicates the number of milliseconds that the DHCP server takes to process each 
 
 You will need:
 
-* dhcp.conf__ file with the required config options for the agent.
+* __template-DHCP.xml__ template imported on Zabbix
+* __dhcp.conf__ file with the required config options for the agent.
 * __Gb-CheckDHCP.ps1__ for discover/query.

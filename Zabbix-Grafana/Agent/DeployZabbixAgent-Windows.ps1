@@ -64,7 +64,13 @@ function copyFiles {
     $RemotePath = "\\$Hostname\"+'c$'+$Path
 
     if (test-Path $RemotePath) {} 
-    else {New-Item -Type Directory -Name $RemotePath }
+    else {New-Item $RemotePath -Type Directory | Out-Null}
+
+    if (test-Path ($RemotePath + "\conf.d")) {} 
+    else {New-Item ($RemotePath + "\conf.d") -Type Directory | Out-Null}
+
+    if (test-Path ($RemotePath + "\Scripts")) {} 
+    else {New-Item ($RemotePath + "\Scripts") -Type Directory | Out-Null}
 
     #Archivos necesarios
     Copy-Item "$sharedFolder\conf.d\*.conf" -Destination ($RemotePath+"\conf.d") -Force

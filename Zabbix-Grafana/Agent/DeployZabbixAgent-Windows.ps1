@@ -63,6 +63,9 @@ function copyFiles {
 
     $RemotePath = "\\$Hostname\"+'c$'+$Path
 
+    if (test-Path $RemotePath) {} 
+    else {New-Item -Type Directory -Name $RemotePath }
+
     #Archivos necesarios
     Copy-Item "$sharedFolder\conf.d\*.conf" -Destination ($RemotePath+"\conf.d") -Force
     Copy-Item "$sharedFolder\Scripts\*.*" -Destination ($RemotePath+"\Scripts") -Force
@@ -110,14 +113,12 @@ foreach ($hostName in $HostList) {
 
     switch ($result) {
         Running {
-
             writeLog $LogFile "Service is running in $Hostname and shouldn't. Check if the update was applied and restart service manually" "White" "Red"
         }
 
         Stopped {
 
             copyFiles $hostName $Path $SharedFolder
-
             writeLog $LogFile "Service was stopped and config/files updated in $Hostname. Satarting again..."
             
             $result = execZbxSrv ( '"' + $LocalPath + '\zabbix_agentd.exe" --start' ) $hostName
